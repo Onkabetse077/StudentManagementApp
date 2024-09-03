@@ -1,15 +1,14 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 // Student class to hold student data
 class Student {
-    private String id;
-    private String name;
-    private int age;
-    private String email;
-    private String course;
+    private final String id;
+    private final String name;
+    private final int age;
+    private final String email;
+    private final String course;
 
     public Student(String id, String name, int age, String email, String course) {
         this.id = id;
@@ -24,14 +23,11 @@ class Student {
         return "ID: " + id + "\nName: " + name + "\nAge: " + age + "\nEmail: " + email + "\nCourse: " + course;
     }
 
-    public int getAge() {
-        return age;
-    }
 }
 
 public class StudentManagementApp {
-    private static List<Student> students = new ArrayList<>();
-    private static Scanner scanner = new Scanner(System.in);
+    private static final List<Student> students = new ArrayList<>();
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         while (true) {
@@ -90,7 +86,7 @@ public class StudentManagementApp {
         System.out.print("Enter the student name: ");
         String name = scanner.nextLine();
 
-        int age = 0;
+        int age;
         while (true) {
             System.out.print("Enter the student age: ");
             if (scanner.hasNextInt()) {
