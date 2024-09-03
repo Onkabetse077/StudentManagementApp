@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 // Student class to hold student data
@@ -34,22 +35,22 @@ public class StudentManagementApp {
 
     public static void main(String[] args) {
         while (true) {
-            showMenu();
+            ShowMenu();
             int choice = scanner.nextInt();
             scanner.nextLine();  // Consume newline
 
             switch (choice) {
                 case 1:
-                    captureStudent();
+                    SaveStudent();
                     break;
                 case 2:
-                    searchStudent();
+                    SearchStudent();
                     break;
                 case 3:
-                    deleteStudent();
+                    DeleteStudent();
                     break;
                 case 4:
-                    printStudentReport();
+                    StudentReport();
                     break;
                 case 5:
                     System.out.println("Exiting Application...");
@@ -60,20 +61,27 @@ public class StudentManagementApp {
         }
     }
 
-    private static void showMenu() {
+    private static void ShowMenu() {
         System.out.println("STUDENT MANAGEMENT APPLICATION");
         System.out.println("********************************");
         System.out.println("Enter (1) to launch menu or any other key to exit");
-        System.out.println("Please select one of the following menu items:");
-        System.out.println("(1) Capture a new student.");
-        System.out.println("(2) Search for a student.");
-        System.out.println("(3) Delete a student.");
-        System.out.println("(4) Print student report.");
-        System.out.println("(5) Exit Application.");
-        System.out.print("Choice: ");
+
+        if (scanner.nextInt() == 1) {
+            System.out.println("Please select one of the following menu items:");
+            System.out.println("(1) Capture a new student.");
+            System.out.println("(2) Search for a student.");
+            System.out.println("(3) Delete a student.");
+            System.out.println("(4) Print student report.");
+            System.out.println("(5) Exit Application.");
+            System.out.print("Choice: ");
+        }else {
+            System.out.println("Exiting Application...");
+            System.exit(0);
+        }
+
     }
 
-    private static void captureStudent() {
+    private static void SaveStudent() {
         System.out.println("CAPTURE A NEW STUDENT");
         System.out.println("************************");
         System.out.print("Enter the student id: ");
@@ -109,7 +117,7 @@ public class StudentManagementApp {
         System.out.println("Student captured successfully.");
     }
 
-    private static void searchStudent() {
+    private static void SearchStudent() {
         System.out.print("Enter student id to search: ");
         String id = scanner.nextLine();
         for (Student student : students) {
@@ -121,14 +129,21 @@ public class StudentManagementApp {
         System.out.println("Student not found.");
     }
 
-    private static void deleteStudent() {
+    private static void DeleteStudent() {
         System.out.print("Enter student id to delete: ");
         String id = scanner.nextLine();
-        students.removeIf(student -> student.toString().contains(id));
-        System.out.println("Student deleted if existed.");
+
+        System.out.println("Are you sure you want to delete the student " + id + " from the system? yes (y) to delete.");
+         char choose = scanner.next().charAt(0);
+        if (choose == 'y' ||choose == 'Y') {
+            students.removeIf(student -> student.toString().contains(id));
+            System.out.println("---------------------------------------");
+            System.out.println("Student with ID: " + id +" was deleted!");
+            System.out.println("---------------------------------------");
+        }
     }
 
-    private static void printStudentReport() {
+    private static void StudentReport() {
         System.out.println("STUDENT REPORT");
         System.out.println("************************");
         for (Student student : students) {
